@@ -1,292 +1,233 @@
-Home  » 15CSE281: Data Structure Lab » DoublyLinkedList » All Submissions » niveth_saran [19552294]
-Solution: 19552294
-CodeChef submission 19552294 (JAVA) plaintext list. Status: AC, problem CS281L1, contest DS20186A. By niveth_saran (niveth_saran), 2018-08-07 15:40:58.
- 
-import java.util.*;
- class Test {
-public static void main(String args[]) {
-	int t;
-	Scanner in=new Scanner(System.in);
-	t=Integer.parseInt(in.nextLine());
-	IDLL<Integer> ll=new DoublyLinkedList<Integer>();
-	for(int i=0;i<t;i++)
-	{
-		int n;
-		n=Integer.parseInt(in.nextLine());
-		for(int j=0;j<n;j++)
-		{
-			String o=in.nextLine();
-			String temp[]=o.split(" ");
-			if(temp[0].equals("I"))
-			{	
-				System.out.println(ll.isEmpty());
-			}
-			if(temp[0].equals("S"))
-			{	
-				System.out.println(ll.size());
-			}
-			if(temp[0].equals("AF"))
-			{
-				int te=Integer.parseInt(temp[1]);
-				ll.insertFirst(te);
-				
-			}
-			if(temp[0].equals("AL"))
-			{
-				int te=Integer.parseInt(temp[1]);
-				ll.insertLast(te);
-				
-			}
-			if(temp[0].equals("RF"))
-			{
-				ll.removeFirst();
-			}
-			if(temp[0].equals("RL"))
-			{
-				ll.removeLast();
-			}
-			if(temp[0].equals("L"))
-			{
-				ll.last();
-				
-				
-			}
-			if(temp[0].equals("F"))
-			{
-				ll.first();
-				
-			}
-			if(temp[0].equals("FIND"))
-			{
-				int te=Integer.parseInt(temp[1]);
-				ll.find(te);
-				
-			}
-			
-			
-			
-			
-		}
-		
-		
-		
-		
-	}
-	
-}
- 
-}
-class Node<E>
-{
-	Node<E> next,prev;
-	E element;
-	Node()
-	{
-		next=null;
-		prev=null;
-		element=null;
-	}
-	Node(Node<E> n,Node<E> p, E e)
-	{
-		next=n;
-		prev=p;
-		element=e;
-	}
-	
-}
-interface IDLL<E>
-{
-	void insertFirst(E e);
-	void insertLast(E e);
-	void removeFirst();
-	void removeLast();
-	void first();
-	void last();
-	int size();
-	boolean isEmpty();
-	void printList();
-	void find(E e);
-	
-}
- 
-class DoublyLinkedList<E> implements IDLL<E>
-{
-int size=0;
-Node<E> head,tail;
-	@Override
-	public void insertFirst(E e) {
-		
-		if(isEmpty())
-		{
-			Node<E> n=new Node<E>(null,null,e);
-			n.prev=null;
-			n.next=null;
-			head=n;
-			tail=n;
-			
-			size++;
-			printList();
-			
-		}
-		else
-		{	Node<E> n=new Node<E>(null,null,e);
-			n.prev=null;
-			n.next=head;
-			n.next.prev=n;
-			head=n;
-			
-			size++;
-			printList();
-			
-		}
-		
-	}
- 
-	@Override
-	public void insertLast(E e) {
-		
-		if(isEmpty())
-		{
-			Node<E> n=new Node<E>(null,null,e);
-			n.prev=null;
-			n.next=null;
-			head=n;
-			tail=n;
-			
-			size++;
-			printList();
-			
-		}
-		else
-		{	Node<E> n=new Node<E>(null,null,e);
-			n.prev=tail;
-			n.next=null;
-			n.prev.next=n;
-			tail=n;
-			
-			size++;
-			printList();
-			
-		}
-	}
- 
-	@Override
-	public void removeFirst() {
-		// TODO Auto-generated method stub
-		if(isEmpty())
-		{
-			System.out.println("ListEmptyException");
-			printList();
-		}
-		else if(size==1)
-		{
-			
-			head=null;
-			size--;
-			printList();
-		}
-		else
-		{
-			Node<E> temp=head;
-			temp.next.prev=null;
-			head=temp.next;
-			temp=null;
-			size--;
-			printList();
-		}
-	}
- 
-	@Override
-	public void removeLast() {
-		// TODO Auto-generated method stub
-		if(isEmpty())
-		{
-			System.out.println("ListEmptyException");
-			printList();
-		}
-		else if(size==1)
-		{
-			tail=null;
-			size--;
-			printList();
-		}
-		else
-		{
-			Node<E> temp=tail;
-			temp.prev.next=null;
-			tail=temp.prev;
-			temp=null;
-			size--;
-			printList();
-		}
-	}
- 
-	@Override
-	public void first() {
-		// TODO Auto-generated method stub
-			System.out.println(head.element);
-	}
- 
-	@Override
-	public void last() {
-		
-		System.out.println(tail.element);
-	}
- 
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return size;
-	}
- 
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return (size==0);
-	}
- 
-	@Override
-	public void printList() {
-		if (size()==0) {
-			System.out.println("List Empty");
-		}
-		else {
-			Node<E> temp = head;
-			while (temp != null) {
-				System.out.print(temp.element+ "->");
-				temp = temp.next;
-			}
-			System.out.print("null\n");
-			temp = tail;
-			while (temp != null) {
-				System.out.print(temp.element + "->");
-				temp = temp.prev;
-			}
-			System.out.print("null\n");
-		}
-	}
- 
-	@Override
-	public void find(E e) {
-		// TODO Auto-generated method stub
-		int f=0;
-		if(isEmpty())
-		{
-			System.out.println("ListEmptyException");
-			
-		}else {
-		Node<E> temp=head;
-		while(temp!=null)
-		{
-			if(temp.element==e)
-				{System.out.println(e);
-				f=1;
-				}
-			temp=temp.next;
-		}
-		if(f==0)
-		System.out.println("null");
-		}
-		}
-	
-} 
+ import java.util.*;
+        import java.io.*;
+        class test {
+        	public static void main(String args[])throws IOException {
+        		DLL<Integer> list = new Doubly<Integer>();
+        		Scanner sc=new Scanner(System.in);
+        		InputStreamReader in = new InputStreamReader(System.in);
+        		BufferedReader br = new BufferedReader(in);
+        		int test= Integer.parseInt(br.readLine());
+        		int inp= Integer.parseInt(br.readLine());
+        		for(int j=0;j<test;j++) {
+        			for(int i=0;i<inp;i++) {
+        				String s = br.readLine();
+        				String temp[] = s.split(" ");
+        				if(temp[0].equals("I")) {
+        					System.out.println(list.isEmpty());
+        				}
+        				if(temp[0].equals("S")) {
+        					System.out.println(list.size());
+        				}
+        				if(temp[0].equals("AF")) {
+        					list.addFirst(Integer.parseInt(temp[1]));
+        					list.print();
+        				}
+        				if(temp[0].equals("AL")) {
+        					list.addLast(Integer.parseInt(temp[1]));
+        					list.print();
+        				}
+        				if(temp[0].equals("RF")) {
+        					list.remFirst();
+        					list.print();
+        				}
+        				if(temp[0].equals("RL")) {
+        					list.remLast();
+        					list.print();
+        					
+        				}
+        				if(temp[0].equals("L")) {
+        					System.out.println(list.last());
+        				}
+         
+        				if(temp[0].equals("F")) {
+        					System.out.println(list.first());
+        				}
+        				if(temp[0].equals("FIND")) {
+        					list.find(Integer.parseInt(temp[1]));
+        				}
+        			}
+        		}
+        	}
+        }
+         
+        interface DLL<E> {
+        	
+        	Object getHead();
+        	E first();
+        	E last();
+        	Object getTail();
+        	void addFirst(E e);
+        	void addLast(E e);
+        	void remFirst();
+        	void remLast();
+        	void print();
+        	void find(E e);
+        	int size();
+        	boolean isEmpty();
+        }
+         
+        class Node<E> {
+         
+        	E element;
+        	Node<E> next;
+        	Node<E> prev;
+        	public Node() {
+        		element = null;
+        		next = null;
+        		prev = null;
+        	}
+        	public Node(E e, Node<E> n, Node<E> p) {
+        		element = e;
+        		next = n;
+        		prev = p;
+        	}
+        	Node<E> getNext(){
+        		return next;
+        	}
+        	Node<E> getPrev(){
+        		return next;
+        	}
+        	E getEl() {
+        		return element;
+        	}
+        	void setNext(Node<E> n) {
+        		next=n;
+        	}
+        	void setPrev(Node<E> p) {
+        		prev=p;
+        	}
+        }
+         
+        class Doubly<E> implements DLL<E>{
+        	Node<E> head=null;
+        	Node<E> tail=null;
+        	int sz=0;
+        	
+        	public E first() {
+        		return head.getEl();
+        	}
+        	
+        	public E last() {
+        		return tail.getEl();
+        	}
+        	public Object getHead() {
+        		// TODO Auto-generated method stub
+        		return head;
+        	}
+         
+        	
+        	public Object getTail() {
+        		// TODO Auto-generated method stub
+        		return tail;
+        	}
+         
+       
+        	public void addFirst(E e) {
+        		Node<E> temp = new Node<E>(e,null,null);
+        		if(sz==0) {
+        			head=temp;
+        			tail=head;
+        			sz++;
+        			return;
+        		}
+        		temp.next=head;
+        		head.prev=temp;
+        		head=temp;
+        		sz++;
+        		
+        	}
+       
+        	public void addLast(E e) {
+        		Node<E> temp = new Node<E>(e,null,null);
+        		if(sz==0) {
+        			head=temp;
+        			tail=head;
+        			sz++;
+        			return;
+        		}
+        		tail.next=temp;
+        		temp.prev=tail;
+        		tail=temp;
+        		sz++;
+        		
+        	}
+        	public void remFirst() {
+        		if(sz==0) {
+        			System.out.println("ListEmptyException");
+        			return;
+        		}
+        		if(sz==1) {
+        			E e=head.getEl();
+        			head=head.next;
+        			sz--;
+        			return;
+        		}
+        		E e=head.getEl();
+        		head=head.next;
+        		head.prev=null;
+        		sz--;
+        		return;
+        	}
+         
+        	
+        	public void remLast() {
+        		if(sz==0) {
+        			System.out.println("ListEmptyException");
+        			return;
+        		}
+        		if(sz==1) {
+        		    E e=tail.getEl();
+        		    tail=tail.prev;
+        			sz--;
+        			return;
+        		}
+        		E e=tail.getEl();
+        		tail=tail.prev;
+        		tail.next=null;
+        		sz--;
+        		return;
+        	}
+         
+        	
+        	public void print() {
+        		if (size()==0) {
+        			System.out.println("List Empty");
+        		}
+        		else {
+        			Node<E> temp = head;
+        			while (temp != null) {
+        				System.out.print(temp.getEl() + "->");
+        				temp = temp.getNext();
+        			}
+        			System.out.print("null\n");
+        			temp = tail;
+        			while (temp != null) {
+        				System.out.print(temp.getEl() + "->");
+        				temp = temp.prev;
+        			}
+        			System.out.print("null\n");
+        		}
+        	}
+         
+               	public void find(E e) {
+        		Node<E> p=head;
+        		for(int i=0;i<sz;i++) {
+        			if(p.element==e) {
+        				System.out.println(p.element);
+        				return;
+        			}
+        			p=p.next;
+        		}
+        		System.out.println("null");
+        		return ;
+        	}
+         
+               	public int size() {
+        		return sz;
+        	}
+         
+        	public boolean isEmpty() {
+        		return sz==0;
+        	}
+        	
+        }    
