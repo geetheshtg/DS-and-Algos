@@ -84,9 +84,6 @@
         	Node<E> getNext(){
         		return next;
         	}
-        	Node<E> getPrev(){
-        		return next;
-        	}
         	E getEl() {
         		return element;
         	}
